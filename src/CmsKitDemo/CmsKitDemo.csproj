@@ -117,4 +117,15 @@
     <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="ViewComponents\Today\Format.cshtml" />
+    <Content Remove="ViewComponents\Today\Today.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\MySimpleWidget\Default.cshtml" />
+    <None Include="ViewComponents\Today\Format.cshtml" />
+    <None Include="ViewComponents\Today\Today.cshtml" />
+  </ItemGroup>
+
 </Project>

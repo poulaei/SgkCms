@@ -57,6 +57,8 @@ using Volo.Abp.Threading;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Volo.CmsKit.Reactions;
 using Volo.CmsKit.Comments;
+using Volo.CmsKit.Web.Contents;
+using Polly;
 
 namespace CmsKitDemo;
 
@@ -136,15 +138,15 @@ public class CmsKitDemoModule : AbpModule
             );
         });
 
-		PreConfigure<OpenIddictBuilder>(builder =>
-		{
-			builder.AddValidation(options =>
-			{
-				options.AddAudiences("CmsKitDemo");
-				options.UseLocalServer();
-				options.UseAspNetCore();
-			});
-		});
+        PreConfigure<OpenIddictBuilder>(builder =>
+        {
+            builder.AddValidation(options =>
+            {
+                options.AddAudiences("CmsKitDemo");
+                options.UseLocalServer();
+                options.UseAspNetCore();
+            });
+        });
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -163,6 +165,7 @@ public class CmsKitDemoModule : AbpModule
         ConfigureBundles();
         ConfigureAutoMapper(context);
         ConfigureSwagger(context.Services);
+        ConfigureCors(context.Services);
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureVirtualFiles(hostingEnvironment);
@@ -170,6 +173,18 @@ public class CmsKitDemoModule : AbpModule
         ConfigureEfCore(context);
         ConfigureRazorPages();
         ConfigureCmsKit(context);
+
+
+        //Configure<CmsKitContentWidgetOptions>(options =>
+        //{
+        //    options.AddWidget("MySimpleWidget", "MySimpleWidget","name");
+        //});
+
+        Configure<CmsKitContentWidgetOptions>(options =>
+        {
+            options.AddWidget(widgetType: "Today", widgetName: "CmsToday", parameterWidgetName: "Format");
+            // options.AddWidget("Format", "Format");
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -278,14 +293,57 @@ public class CmsKitDemoModule : AbpModule
 
     private void ConfigureSwagger(IServiceCollection services)
     {
-        services.AddAbpSwaggerGen(
+        var configuration = services.GetConfiguration();
+        //services.AddAbpSwaggerGen(
+        //    options =>
+        //    {
+        //        options.SwaggerDoc("v1", new OpenApiInfo { Title = "CmsKitDemo API", Version = "v1" });
+        //        options.DocInclusionPredicate((docName, description) => true);
+        //        options.CustomSchemaIds(type => type.FullName);
+        //       // options.HideAbpEndpoints();
+        //    }
+        //);
+
+        //services.AddAbpSwaggerGenWithOAuth(
+        //        "https://localhost:44373",             // authority issuer
+        //        new Dictionary<string, string>         //
+        //        {                                      // scopes
+        //         {"CmsKitDemo", "CmsKitDemo API"}               //
+        //        },                                     //
+        //        options =>
+        //        {
+        //            options.SwaggerDoc("v1", new OpenApiInfo { Title = "CmsKitDemo API", Version = "v1" });
+        //            options.DocInclusionPredicate((docName, description) => true);
+        //            options.CustomSchemaIds(type => type.FullName);
+        //        }
+        //    );
+
+        services.AddAbpSwaggerGenWithOidc(
+            configuration["AuthServer:Authority"],
+            scopes: new[] { "CmsKitDemo" },
+            // "authorization_code"
+            flows: new[] { AbpSwaggerOidcFlows.AuthorizationCode },
+            // When deployed on K8s, should be metadata URL of the reachable DNS over internet like https://myauthserver.company.com
+             discoveryEndpoint: configuration["AuthServer:Authority"],
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "CmsKitDemo API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
-            }
-        );
+            });
+
+    }
+    private void ConfigureCors(IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
     }
 
     private void ConfigureAutoMapper(ServiceConfigurationContext context)
@@ -354,7 +412,7 @@ public class CmsKitDemoModule : AbpModule
         Configure<CmsKitCommentOptions>(options =>
         {
             options.EntityTypes.Add(new CommentEntityTypeDefinition(CmsKitDemoConsts.ImageGalleryEntityType));
-            options.IsRecaptchaEnabled = true; 
+            options.IsRecaptchaEnabled = true;
         });
     }
 
@@ -390,9 +448,13 @@ public class CmsKitDemoModule : AbpModule
         app.UseAuthorization();
 
         app.UseSwagger();
+        app.UseCors("AllowAll");
         app.UseAbpSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "CmsKitDemo API");
+            //var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
+            options.OAuthClientId("CmsKit_Web"); // clientId
+            options.OAuthClientSecret("1q2w3e*");  // clientSecret
         });
 
         app.UseAuditing();
