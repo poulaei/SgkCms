@@ -1,4 +1,6 @@
 ﻿using CmsKitDemo.Entities;
+using CmsKitDemo.Features;
+using CmsKitDemo.GlobalFeatures;
 using CmsKitDemo.Permissions;
 using CmsKitDemo.Services.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -6,12 +8,17 @@ using System.Linq.Dynamic.Core;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Features;
+using Volo.Abp.GlobalFeatures;
 using Volo.CmsKit.Comments;
+using Volo.CmsKit.Features;
+using Volo.CmsKit.GlobalFeatures;
 using Volo.CmsKit.Reactions;
 
-namespace CmsKitDemo.Services
-{
-    public class ImageGalleryAppService :
+namespace CmsKitDemo.Services;
+[RequiresFeature(CmsKitDemoFeatures.GalleryImageEnable)]
+[RequiresGlobalFeature(typeof(GalleryImageFeature))]
+public class ImageGalleryAppService :
         CrudAppService<GalleryImage, GalleryImageDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateGalleryImageDto, CreateUpdateGalleryImageDto>,
         IImageGalleryAppService
     {
@@ -45,4 +52,4 @@ namespace CmsKitDemo.Services
             }).ToList();
         }
     }
-}
+

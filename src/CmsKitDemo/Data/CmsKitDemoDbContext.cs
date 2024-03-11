@@ -29,6 +29,8 @@ namespace CmsKitDemo.Data;
 public class CmsKitDemoDbContext : AbpDbContext<CmsKitDemoDbContext>, ICmsKitDbContext
 {
     public DbSet<GalleryImage> GalleryImages { get; set; }
+    public DbSet<Box> Boxs { get; set; }
+    public DbSet<BoxItem> BoxItems { get; set; }
 
     #region CMS Kit Entities
 
@@ -86,6 +88,38 @@ public class CmsKitDemoDbContext : AbpDbContext<CmsKitDemoDbContext>, ICmsKitDbC
         {
             b.ToTable(CmsKitDemoConsts.DbTablePrefix + "Images", CmsKitDemoConsts.DbSchema);
             b.ConfigureByConvention();
+        });
+
+        builder.Entity<Box>(b =>
+        {
+            b.ToTable(CmsKitDemoConsts.DbTablePrefix + "Box", CmsKitDemoConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Section).IsRequired().HasMaxLength(BoxConsts.SectionMaxLength);
+            b.Property(x => x.Title).HasMaxLength(BoxConsts.TitleMaxLength);
+            b.Property(x => x.Action).HasMaxLength(BoxConsts.ActionMaxLength);
+            b.Property(x => x.ActionUrl).HasMaxLength(BoxConsts.ActionUrlMaxLength);
+            b.Property(x => x.Summary).HasMaxLength(BoxConsts.SummaryMaxLength);
+            b.Property(x => x.Description).HasMaxLength(BoxConsts.DescriptionMaxLength);
+            b.HasMany(x => x.BoxItems).WithOne().HasForeignKey(bd => bd.BoxId).IsRequired();
+            b.HasIndex(x => new { x.Section ,x.Status});
+
+            b.ApplyObjectExtensionMappings();
+        });
+
+        builder.Entity<BoxItem>(b =>
+        {
+            b.ToTable(CmsKitDemoConsts.DbTablePrefix + "BoxItems", CmsKitDemoConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Title).HasMaxLength(BoxItemConsts.TitleMaxLength);
+            b.Property(x => x.Action).HasMaxLength(BoxItemConsts.ActionMaxLength);
+            b.Property(x => x.ActionUrl).HasMaxLength(BoxItemConsts.ActionUrlMaxLength);
+            b.Property(x => x.Summary).HasMaxLength(BoxItemConsts.SummaryMaxLength);
+            b.Property(x => x.Icon).HasMaxLength(BoxItemConsts.IconMaxLength);
+            b.Property(x => x.Description).HasMaxLength(BoxItemConsts.DescriptionMaxLength);
+            b.Property(x => x.MediaId).HasMaxLength(BoxItemConsts.DescriptionMaxLength);
+            b.ApplyObjectExtensionMappings();
+
         });
     }
 }

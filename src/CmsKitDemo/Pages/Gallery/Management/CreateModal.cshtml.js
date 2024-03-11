@@ -1,7 +1,7 @@
 ﻿abp.modals.ImageManagementCreate = function () {
 
     function initModal(modalManager, args) {
-        var fileUploadUri = "/api/cms-kit-admin/media/page";
+        var fileUploadUri = "/api/cms-kit-admin/media/image";
 
         var fileInput = document.getElementById("ImageFile");
         var file;

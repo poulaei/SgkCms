@@ -1,4 +1,5 @@
-﻿using Volo.Abp.GlobalFeatures;
+﻿using CmsKitDemo.GlobalFeatures;
+using Volo.Abp.GlobalFeatures;
 using Volo.Abp.Threading;
 
 namespace CmsKitDemo;
@@ -12,6 +13,11 @@ public class CmsKitDemoGlobalFeatureConfigurator
         OneTimeRunner.Run(() =>
         {
             GlobalFeatureManager.Instance.Modules.CmsKit(cmsKit =>
+            {
+                cmsKit.EnableAll();
+            });
+            //Added by poolaei @1402/12/18
+            GlobalFeatureManager.Instance.Modules.CmsKitDemo(cmsKit =>
             {
                 cmsKit.EnableAll();
             });

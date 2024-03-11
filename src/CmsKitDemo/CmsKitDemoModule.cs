@@ -59,6 +59,18 @@ using Volo.CmsKit.Reactions;
 using Volo.CmsKit.Comments;
 using Volo.CmsKit.Web.Contents;
 using Polly;
+using Volo.Abp.GlobalFeatures;
+using Volo.CmsKit.Blogs;
+using Volo.CmsKit.GlobalFeatures;
+using Volo.CmsKit.MediaDescriptors;
+using Volo.CmsKit.Pages;
+using Volo.CmsKit.Permissions;
+using CmsKitDemo.GlobalFeatures;
+using CmsKitDemo.Permissions;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 
 namespace CmsKitDemo;
 
@@ -328,8 +340,23 @@ public class CmsKitDemoModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "CmsKitDemo API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
+             // options.DocInclusionPredicate((docName, description) => true);
+                options.DocInclusionPredicate((docName, description) =>
+                {
+                    // Generate only api that related to my api
+                    return description.RelativePath.IndexOf("/royan") >= 0 
+                    | description.RelativePath.IndexOf("/box") >= 0
+                     | description.RelativePath.IndexOf("/media") >= 0
+                     | description.RelativePath.IndexOf("/login") >= 0;
+                });
                 options.CustomSchemaIds(type => type.FullName);
+                //options.CustomOperationIds(apiDesc =>
+                //{
+                //    return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
+                //});
+
+               options.DocumentFilter<ApiOptionFilter>();
+                //options.HideAbpEndpoints();
             });
 
     }
@@ -344,6 +371,16 @@ public class CmsKitDemoModule : AbpModule
                        .AllowAnyHeader();
             });
         });
+
+        //Configure<AbpAntiForgeryOptions>(options =>
+        //{
+        //    options.TokenCookie.SecurePolicy = CookieSecurePolicy.None;
+        //    options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+        //    //options.AutoValidate = false;
+        //    //options.AutoValidateIgnoredHttpMethods.Remove("GET");
+        //    //options.AutoValidateFilter =
+        //    //    type => !type.Namespace.StartsWith("CmsKitDemo");
+        //});
     }
 
     private void ConfigureAutoMapper(ServiceConfigurationContext context)
@@ -414,6 +451,52 @@ public class CmsKitDemoModule : AbpModule
             options.EntityTypes.Add(new CommentEntityTypeDefinition(CmsKitDemoConsts.ImageGalleryEntityType));
             options.IsRecaptchaEnabled = true;
         });
+
+        //Added by poolaei @1402/12/18
+        if (GlobalFeatureManager.Instance.IsEnabled<MediaFeature>())
+        {
+            Configure<CmsKitMediaOptions>(options =>
+            {
+                if (GlobalFeatureManager.Instance.IsEnabled<GalleryImageFeature>())
+                {
+                    options.EntityTypes.AddIfNotContains(
+                        new MediaDescriptorDefinition(
+                            CmsKitDemoConsts.ImageGalleryEntityType,
+                            createPolicies: new[]
+                            {
+                                    CmsKitDemoPermissions.GalleryImage.Create,
+                                    CmsKitDemoPermissions.GalleryImage.Update
+                            },
+                            deletePolicies: new[]
+                            {
+                                    CmsKitDemoPermissions.GalleryImage.Create,
+                                    CmsKitDemoPermissions.GalleryImage.Update,
+                                    CmsKitDemoPermissions.GalleryImage.Delete
+                            }));
+                }
+                //Added by poolaei @1402/12/21
+                if (GlobalFeatureManager.Instance.IsEnabled<BoxFeature>())
+                {
+                    options.EntityTypes.AddIfNotContains(
+                        new MediaDescriptorDefinition(
+                            BoxConsts.EntityType,
+                            createPolicies: new[]
+                            {
+                                    CmsKitDemoPermissions.Box.Create,
+                                    CmsKitDemoPermissions.Box.Update
+                            },
+                            deletePolicies: new[]
+                            {
+                                    CmsKitDemoPermissions.Box.Create,
+                                    CmsKitDemoPermissions.Box.Update,
+                                    CmsKitDemoPermissions.Box.Delete
+                            }));
+                }
+
+
+            });
+        }
+
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -462,3 +545,5 @@ public class CmsKitDemoModule : AbpModule
         app.UseConfiguredEndpoints();
     }
 }
+
+

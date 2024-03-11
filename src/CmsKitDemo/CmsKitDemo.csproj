@@ -118,6 +118,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\CmsKitDemoDbContextModelSnapshot - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="ViewComponents\Today\Format.cshtml" />
     <Content Remove="ViewComponents\Today\Today.cshtml" />
   </ItemGroup>
