@@ -374,9 +374,9 @@ public class CmsKitDemoModule : AbpModule
 
         //Configure<AbpAntiForgeryOptions>(options =>
         //{
-        //    options.TokenCookie.SecurePolicy = CookieSecurePolicy.None;
-        //    options.TokenCookie.Expiration = TimeSpan.FromDays(365);
-        //    //options.AutoValidate = false;
+        //    //options.TokenCookie.SecurePolicy = CookieSecurePolicy.None;
+        //   // options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+        //    options.AutoValidate = false;
         //    //options.AutoValidateIgnoredHttpMethods.Remove("GET");
         //    //options.AutoValidateFilter =
         //    //    type => !type.Namespace.StartsWith("CmsKitDemo");
