@@ -14,7 +14,8 @@ namespace CmsKitDemo.Services;
 
 [RequiresFeature(CmsKitFeatures.MenuEnable)]
 [RequiresGlobalFeature(typeof(MenuFeature))]
-public class RoyanMenuItemAppService : CmsKitPublicAppServiceBase, IRoyanMenuItemAppService
+public class RoyanMenuItemAppService : CmsKitPublicAppServiceBase
+    , IRoyanMenuItemAppService
 {
     protected IMenuItemRepository MenuItemRepository { get; }
     protected IDistributedCache<List<RoyanMenuItemDto>> DistributedCache { get; }

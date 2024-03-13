@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading;
+using System.Threading.Tasks;
+using CmsKitDemo.Entities;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
+//using NUglify.Helpers;
+using Volo.Abp;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.TenantManagement;
+using Volo.CmsKit.EntityFrameworkCore;
+
+namespace CmsKitDemo.Data;
+
+public class EfCoreBoxRepository : EfCoreRepository<CmsKitDemoDbContext, Box, Guid>, IBoxRepository
+{
+    public EfCoreBoxRepository(IDbContextProvider<CmsKitDemoDbContext> dbContextProvider) : base(dbContextProvider)
+    {
+    }
+
+    public virtual async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await (await GetQueryableAsync()).AnyAsync(x => x.Id == id, GetCancellationToken(cancellationToken));
+    }
+
+    public virtual async Task<bool> SectionExistsAsync(string section, CancellationToken cancellationToken = default)
+    {
+        return await (await GetDbSetAsync()).AnyAsync(x => x.Section == section, GetCancellationToken(cancellationToken));
+    }
+
+    public virtual async Task<List<Box>> GetListAsync(
+        string filter = null,
+        string sorting = null,
+        int maxResultCount = int.MaxValue,
+        int skipCount = 0,
+        bool includeDetails = false,
+        CancellationToken cancellationToken = default)
+    {
+        var query = await GetListQueryAsync(filter);
+
+       
+        return await (query)
+           .IncludeDetails(includeDetails)
+            .OrderBy(sorting.IsNullOrEmpty() ? nameof(Box.CreationTime) + " desc" : sorting)
+           .PageBy(skipCount, maxResultCount)
+           .ToListAsync(GetCancellationToken(cancellationToken));
+    }
+
+    public virtual async Task<long> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
+    {
+        var query = await GetListQueryAsync(filter);
+
+        return await query.LongCountAsync(GetCancellationToken(cancellationToken));
+    }
+
+    public virtual Task<Box> GetBySectionAsync([NotNull] string section, CancellationToken cancellationToken = default)
+    {
+        Check.NotNullOrEmpty(section, nameof(section));
+        return GetAsync(x => x.Section == section, cancellationToken: GetCancellationToken(cancellationToken));
+    }
+
+    protected virtual async Task<IQueryable<Box>> GetListQueryAsync(string filter = null)
+    {
+        return (await GetDbSetAsync())
+            .WhereIf(!filter.IsNullOrWhiteSpace(), b =>
+             (!b.Section.IsNullOrWhiteSpace() && b.Section.Contains(filter))
+            || (!b.Title.IsNullOrWhiteSpace() && b.Title.Contains(filter))
+            || (!b.Summary.IsNullOrWhiteSpace() && b.Summary.Contains(filter))
+            || (!b.Description.IsNullOrWhiteSpace() && b.Description.Contains(filter))
+
+            );
+    }
+    //TODO: چطور باید استفاده شود در حالی که اینترفیس
+    //IBoxRepository
+    // این متد را ندارد
+    public override async Task<IQueryable<Box>> WithDetailsAsync()
+    {
+        return (await GetQueryableAsync()).IncludeDetails();
+    }
+}

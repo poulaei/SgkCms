@@ -5,7 +5,11 @@ using Volo.Abp.Application.Services;
 
 namespace CmsKitDemo.Services.Boxes;
 
-public interface IBoxAppService : ICrudAppService<BoxDto, Guid, PagedAndSortedResultRequestDto, CreateBoxDto, UpdateBoxDto>
+public interface IBoxAppService_CRUD : ICrudAppService<BoxDto, Guid, PagedAndSortedResultRequestDto, CreateBoxDto, UpdateBoxDto>
+{
+    Task<List<BoxDto>> GetDetailedListAsync();
+}
+public interface IBoxAppService : IApplicationService
 {
     Task<List<BoxDto>> GetDetailedListAsync();
 }

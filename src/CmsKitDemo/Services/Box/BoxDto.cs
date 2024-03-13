@@ -12,8 +12,13 @@ public class BoxDto : ExtensibleEntityDto<Guid>, IHasConcurrencyStamp
     public  string? Title { get;  set; }
     public  string? Action { get;  set; }
     public string? ActionUrl { get;  set; }
+   
     public  string? Summary { get;  set; }
     public  BoxStatus Status { get;  set; }
     public string? Description { get;  set; }
     public string ConcurrencyStamp { get; set; }
+   
+    public ICollection<BoxItemDto>? BoxItems { get; set; }
+
+
 }
