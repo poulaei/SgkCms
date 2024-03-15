@@ -2,13 +2,15 @@
 using Volo.Abp;
 using JetBrains.Annotations;
 using System.Security.Principal;
+using Volo.CmsKit.Pages;
+using Volo.CmsKit;
 
 namespace CmsKitDemo.Entities
 {
     public class Box : FullAuditedAggregateRoot<Guid>
     {
         [NotNull]
-        public virtual required string Section { get;  set; }
+        public virtual string Section { get; protected set; }
         public virtual string? Title { get; protected set; }
         public virtual string? Action { get; protected set; }
         public virtual string? ActionUrl { get; protected set; }
@@ -21,7 +23,7 @@ namespace CmsKitDemo.Entities
         {
            
         }
-        protected internal Box(Guid id, [NotNull] string section, string? title = null, string? action = null, string? actionUrl = null, string? summary = null, BoxStatus status = BoxStatus.Draft, string? description = null) : base(id)
+         internal Box(Guid id, [NotNull] string section, string? title = null, string? action = null, string? actionUrl = null, string? summary = null, BoxStatus status = BoxStatus.Draft, string? description = null) : base(id)
         {
             Check.NotNullOrWhiteSpace(section, nameof(section), maxLength: BoxConsts.SectionMaxLength);
             Check.Length(title, nameof(title), BoxConsts.TitleMaxLength);
@@ -40,6 +42,36 @@ namespace CmsKitDemo.Entities
             Description = description;
         }
 
+        internal virtual void SetSection(string section)
+        {
+            Section = Check.NotNullOrEmpty(section, nameof(section), BoxConsts.SectionMaxLength);
+        }
+        public virtual void SetTitle(string title)
+        {
+            Title = Check.Length(title, nameof(title), BoxConsts.TitleMaxLength);
+        }
+        public virtual void SetAction(string action)
+        {
+            Action = Check.Length(action, nameof(action), BoxConsts.ActionMaxLength);
+        }
+        public virtual void SetActionUrl(string url)
+        {
+            ActionUrl = Check.Length(url, nameof(url), BoxConsts.ActionUrlMaxLength);
+        }
+
+        public virtual void SetSummary(string summary)
+        {
+            Summary = Check.Length(summary, nameof(summary), BoxConsts.SummaryMaxLength);
+        }
+
+        public virtual void SetStatus(BoxStatus status)
+        {
+            Status = status;
+        }
+        public virtual void SetDescription(string description)
+        {
+            Description = Check.Length(description, nameof(description), BoxConsts.DescriptionMaxLength);
+        }
         //public Box(Guid id, Guid coverImageMediaId, [NotNull] string description) : base(id)
         //{
         //    Description = Check.NotNullOrWhiteSpace(description, nameof(description), maxLength: CmsKitDemoConsts.MaxDescriptionLength);

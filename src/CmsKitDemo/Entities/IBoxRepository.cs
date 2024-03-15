@@ -10,9 +10,9 @@ public interface IBoxRepository : IBasicRepository<Box, Guid>
 {
     Task<List<Box>> GetListAsync(
         string filter = null,
-        string sorting = null,
         int maxResultCount = int.MaxValue,
         int skipCount = 0,
+        string sorting = null,
         bool includeDetails=false,
         CancellationToken cancellationToken = default
         );
@@ -22,7 +22,7 @@ public interface IBoxRepository : IBasicRepository<Box, Guid>
         CancellationToken cancellationToken = default
         );
 
-    Task<Box> GetBySectionAsync(string section, CancellationToken cancellationToken = default);
+    Task<Box> GetBySectionAsync(string section, bool includeDetails = false, CancellationToken cancellationToken = default);
 
     Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);
 

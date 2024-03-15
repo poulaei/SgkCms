@@ -33,10 +33,10 @@ public class EfCoreBoxRepository : EfCoreRepository<CmsKitDemoDbContext, Box, Gu
     }
 
     public virtual async Task<List<Box>> GetListAsync(
-        string filter = null,
-        string sorting = null,
+         string filter = null,
         int maxResultCount = int.MaxValue,
         int skipCount = 0,
+        string sorting = null,
         bool includeDetails = false,
         CancellationToken cancellationToken = default)
     {
@@ -57,20 +57,19 @@ public class EfCoreBoxRepository : EfCoreRepository<CmsKitDemoDbContext, Box, Gu
         return await query.LongCountAsync(GetCancellationToken(cancellationToken));
     }
 
-    public virtual Task<Box> GetBySectionAsync([NotNull] string section, CancellationToken cancellationToken = default)
+    public virtual Task<Box> GetBySectionAsync([NotNull] string section, bool includeDetails = false, CancellationToken cancellationToken = default)
     {
         Check.NotNullOrEmpty(section, nameof(section));
-        return GetAsync(x => x.Section == section, cancellationToken: GetCancellationToken(cancellationToken));
+        return GetAsync(x => x.Section == section,includeDetails: includeDetails, cancellationToken: GetCancellationToken(cancellationToken));
     }
 
     protected virtual async Task<IQueryable<Box>> GetListQueryAsync(string filter = null)
     {
         return (await GetDbSetAsync())
             .WhereIf(!filter.IsNullOrWhiteSpace(), b =>
-             (!b.Section.IsNullOrWhiteSpace() && b.Section.Contains(filter))
-            || (!b.Title.IsNullOrWhiteSpace() && b.Title.Contains(filter))
-            || (!b.Summary.IsNullOrWhiteSpace() && b.Summary.Contains(filter))
-            || (!b.Description.IsNullOrWhiteSpace() && b.Description.Contains(filter))
+              b.Title.Contains(filter)
+            || b.Summary.Contains(filter)
+            || b.Description.Contains(filter)
 
             );
     }

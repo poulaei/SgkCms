@@ -71,6 +71,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
+using Microsoft.AspNetCore.Cors;
 
 namespace CmsKitDemo;
 
@@ -138,6 +139,7 @@ public class CmsKitDemoModule : AbpModule
 {
     /* Single point to enable/disable multi-tenancy */
     public const bool IsMultiTenant = true;
+    private const string DefaultCorsPolicyName = "Default";
 
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -202,6 +204,13 @@ public class CmsKitDemoModule : AbpModule
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+        //context.Services.AddAuthentication("Bearer")//JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.Authority = configuration["AuthServer:Authority"];
+        //        options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+        //        options.Audience = "CmsKitDemo";
+        //    });
     }
 
     private void ConfigureMultiTenancy()
@@ -218,6 +227,10 @@ public class CmsKitDemoModule : AbpModule
         Configure<AppUrlOptions>(options =>
         {
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+            options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"]?.Split(',') ?? Array.Empty<string>());
+
+            options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
+            options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
     }
 
@@ -340,36 +353,64 @@ public class CmsKitDemoModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "CmsKitDemo API", Version = "v1" });
-             // options.DocInclusionPredicate((docName, description) => true);
-                options.DocInclusionPredicate((docName, description) =>
-                {
-                    // Generate only api that related to my api
-                    return description.RelativePath.IndexOf("/royan") >= 0 
-                    | description.RelativePath.IndexOf("/box") >= 0
-                     | description.RelativePath.IndexOf("/media") >= 0
-                     | description.RelativePath.IndexOf("/login") >= 0;
-                });
+                if (configuration["Royan:ShowApiInSwagger"] == "All")
+                {  
+                    options.DocInclusionPredicate((docName, description) => true);
+                }
+                else {
+                    options.DocInclusionPredicate((docName, description) =>
+                    {
+                        // Generate only api that related to my api
+                        return description.RelativePath.IndexOf("/royan") >= 0
+                        | description.RelativePath.IndexOf("/box") >= 0
+                         | description.RelativePath.IndexOf("/media") >= 0
+                         | description.RelativePath.IndexOf("/login") >= 0;
+                    });
+                }
+               
+               
                 options.CustomSchemaIds(type => type.FullName);
                 //options.CustomOperationIds(apiDesc =>
                 //{
                 //    return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
                 //});
 
-               options.DocumentFilter<ApiOptionFilter>();
+              // options.DocumentFilter<ApiOptionFilter>();
                 //options.HideAbpEndpoints();
             });
 
     }
     private void ConfigureCors(IServiceCollection services)
     {
+        var configuration = services.GetConfiguration();
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowAll", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            });
+            //options.AddPolicy("AllowAll", builder =>
+            //{
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader();
+            //});
+
+            
+                options.AddPolicy(DefaultCorsPolicyName, builder =>
+                {
+                    builder
+                        .WithOrigins(
+                            configuration["App:CorsOrigins"]
+                                .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                                .Select(o => o.RemovePostFix("/"))
+                                .ToArray() ?? Array.Empty<string>()
+                        )
+                        .WithAbpExposedHeaders()
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            
+
+
         });
 
         //Configure<AbpAntiForgeryOptions>(options =>
@@ -531,13 +572,15 @@ public class CmsKitDemoModule : AbpModule
         app.UseAuthorization();
 
         app.UseSwagger();
-        app.UseCors("AllowAll");
+        app.UseCors(DefaultCorsPolicyName);
         app.UseAbpSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "CmsKitDemo API");
-            //var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
-            options.OAuthClientId("CmsKit_Web"); // clientId
-            options.OAuthClientSecret("1q2w3e*");  // clientSecret
+            var configuration = context.GetConfiguration();
+            options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+            options.OAuthClientSecret(configuration["AuthServer:ClientSecret"]); 
+            
+            options.OAuthScopes("CmsKitDemo");
         });
 
         app.UseAuditing();
