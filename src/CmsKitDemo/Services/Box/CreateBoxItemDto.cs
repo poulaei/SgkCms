@@ -15,15 +15,17 @@ public class CreateBoxItemDto : ExtensibleObject
     [Required]
     public  Guid BoxId { get;  set; }
 
-    [DynamicMaxLength(typeof(BoxConsts), nameof(BoxConsts.TitleMaxLength))]
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.TitleMaxLength))]
     public string? Title { get; set; }
-    [DynamicMaxLength(typeof(BoxConsts), nameof(BoxConsts.ActionMaxLength))]
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.ActionMaxLength))]
     public string? Action { get; set; }
-    [DynamicMaxLength(typeof(BoxConsts), nameof(BoxConsts.ActionUrlMaxLength))]
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.ActionUrlMaxLength))]
     public string? ActionUrl { get; set; }
-    [DynamicMaxLength(typeof(BoxConsts), nameof(BoxConsts.SummaryMaxLength))]
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.SummaryMaxLength))]
     public string? Summary { get; set; }
-    [DynamicMaxLength(typeof(BoxConsts), nameof(BoxConsts.DescriptionMaxLength))]
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.IconMaxLength))]
+    public string? Icon { get; set; }
+    [DynamicMaxLength(typeof(BoxItemConsts), nameof(BoxItemConsts.DescriptionMaxLength))]
     public string? Description { get; set; }
     public Guid? MediaId { get; set; }
 }

@@ -65,47 +65,47 @@
     "@abp/core" "~7.3.2"
     bootstrap "^5.1.3"
 
-"@abp/clipboard@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/clipboard/-/clipboard-7.3.2.tgz"
-  integrity sha512-0q5Jlo1m8P+GBF79XcLLI/ZQ4eBI0O4+srbm+BnZYCPIEr3jAJ6kW8UMmQpELbFHOyaqenT/b9chTNGiJai4wQ==
+"@abp/clipboard@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/clipboard/-/clipboard-7.4.5.tgz"
+  integrity sha512-2jN7OmsaqNmJgOnmTXJv1wNJQMVZGJOviTGhGXKz2Pe2zi8AOLYqinSMqsGKS+XVYSZGYLo9/UUg2ZX/oMapeA==
   dependencies:
-    "@abp/core" "~7.3.2"
+    "@abp/core" "~7.4.5"
     clipboard "^2.0.8"
 
-"@abp/cms-kit.admin@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/cms-kit.admin/-/cms-kit.admin-7.3.2.tgz"
-  integrity sha512-uXj7gTp/ZsA2gJ8uJm2qIJOJ5Eln6NsWApqU6FO7VcM3h2+C1hfjucVemkVMS48bc3Vg/Nbm2i6NdjxzsW+dKQ==
+"@abp/cms-kit.admin@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/cms-kit.admin/-/cms-kit.admin-7.4.5.tgz"
+  integrity sha512-RxsLg9IX07oiiL7zV9xskFkYwFRLj+caR1WZh1F8sTlEwZwPY8OG0sFYCBPUFx56o9uaNoI9mEMe/8dEe6XD6g==
   dependencies:
-    "@abp/codemirror" "~7.3.2"
-    "@abp/jstree" "~7.3.2"
-    "@abp/slugify" "~7.3.2"
-    "@abp/tui-editor" "~7.3.2"
-    "@abp/uppy" "~7.3.2"
+    "@abp/codemirror" "~7.4.5"
+    "@abp/jstree" "~7.4.5"
+    "@abp/slugify" "~7.4.5"
+    "@abp/tui-editor" "~7.4.5"
+    "@abp/uppy" "~7.4.5"
 
-"@abp/cms-kit.public@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/cms-kit.public/-/cms-kit.public-7.3.2.tgz"
-  integrity sha512-doLSM+ER6xNijVMJj1vk9EJZh/t0dAKILxR6IrX4arxuFefURsc2Hhci0Tfuk45qOiFTlbVKtHBJlx8CESHagA==
+"@abp/cms-kit.public@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/cms-kit.public/-/cms-kit.public-7.4.5.tgz"
+  integrity sha512-hlEPAYejDogxDiKLoq1D2uZ9VkxIpHJIGHt8sQNo08gNlqU8No2kthXh4nplxCzvC78dH3eubIJQTT86ryO3Gw==
   dependencies:
-    "@abp/highlight.js" "~7.3.2"
-    "@abp/star-rating-svg" "~7.3.2"
+    "@abp/highlight.js" "~7.4.5"
+    "@abp/star-rating-svg" "~7.4.5"
 
 "@abp/cms-kit@^7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/cms-kit/-/cms-kit-7.3.2.tgz"
-  integrity sha512-a1UY/ECU6KI8ZlF5R5UXOSxA+zMX7i8EjSWwAYS+KhDQpOA3dtt6CXN1Li8qd5Mu96QUucrpVPE46MpXBBXTHQ==
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/cms-kit/-/cms-kit-7.4.5.tgz"
+  integrity sha512-uGJzDR+U8ugKRirDXSFROE4bdsuNmXHtb0cY/yltEGieSdKAHDlHf1evq9T5CQ2beyIqnCD7abp7ML0EWCG1nA==
   dependencies:
-    "@abp/cms-kit.admin" "~7.3.2"
-    "@abp/cms-kit.public" "~7.3.2"
+    "@abp/cms-kit.admin" "~7.4.5"
+    "@abp/cms-kit.public" "~7.4.5"
 
-"@abp/codemirror@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/codemirror/-/codemirror-7.3.2.tgz"
-  integrity sha512-EcOHtqJud8SqyW34iqF6K5xDLpV2uTnysYLeRPp8JtqJpVcuzBGloo4AE0viv0fLvG5gt+YHnJKX2jgz24z0qw==
+"@abp/codemirror@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/codemirror/-/codemirror-7.4.5.tgz"
+  integrity sha512-EkZ7wZoNc+uQhvdb/2hnynPpuL/xtLxZuTccGUbkEA4W3ymV6+Not9t2C9uDXy9ZFJoUtQQS5NrOmNhMTNa18Q==
   dependencies:
-    "@abp/core" "~7.3.2"
+    "@abp/core" "~7.4.5"
     codemirror "^5.65.1"
 
 "@abp/core@~7.3.2":
@@ -114,6 +114,13 @@
   integrity sha512-xaVdVd66VJt/ysqPXUn34B/nrsgexIau0t0HpTHPvIc960gh/AK/KffssQk/DaO2QtrdaTOIh2MiZv7t+oWEsg==
   dependencies:
     "@abp/utils" "~7.3.2"
+
+"@abp/core@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/core/-/core-7.4.5.tgz"
+  integrity sha512-0SJonl2eg+bLqWmbbJzyqaJBeqXdtGL1078bwdB7lyxiXePfMeh2LvvAqMaH6pgllBQw2Emz08aNZH653Rl3dg==
+  dependencies:
+    "@abp/utils" "~7.4.5"
 
 "@abp/datatables.net-bs5@~7.3.2":
   version "7.3.2"
@@ -139,12 +146,12 @@
     "@abp/core" "~7.3.2"
     "@fortawesome/fontawesome-free" "^5.15.4"
 
-"@abp/highlight.js@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/highlight.js/-/highlight.js-7.3.2.tgz"
-  integrity sha512-EJZnwndBxXlL36k+KI95V/J1xkdvvSRCRyG5kWlXe3amk8ozdsOzpjRLOZ4HzkS1qlzA6+1Eugo6lqq9qkKCEg==
+"@abp/highlight.js@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/highlight.js/-/highlight.js-7.4.5.tgz"
+  integrity sha512-FNNjWXEaRA40FYpQsFdkV77kUYXIdEjZKatqPDA2KMvPd+Dnuc5GmPMppLWoC699JgXIIG6QBJl47HBAU4Uvhw==
   dependencies:
-    "@abp/core" "~7.3.2"
+    "@abp/core" "~7.4.5"
     "@highlightjs/cdn-assets" "~11.4.0"
 
 "@abp/jquery-form@~7.3.2":
@@ -179,12 +186,20 @@
     "@abp/core" "~7.3.2"
     jquery "~3.6.0"
 
-"@abp/jstree@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/jstree/-/jstree-7.3.2.tgz"
-  integrity sha512-KgmoIKJHXUgCLV74EAbrKeunTiDxra0AZ4/+3bMmWPhteSHdU5Dk3GOcrkGLlpFOfPqAqMrOVNVqvKCaLtnhuQ==
+"@abp/jquery@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/jquery/-/jquery-7.4.5.tgz"
+  integrity sha512-IIwdGJIuU8oJBdhm7MSl4RCHTwRcZNqcBGSu/fPD3WrD0jyptqhXxTpngyrRmJrRMwphiAzNG+qdHQkJkRrqtQ==
   dependencies:
-    "@abp/jquery" "~7.3.2"
+    "@abp/core" "~7.4.5"
+    jquery "~3.6.0"
+
+"@abp/jstree@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/jstree/-/jstree-7.4.5.tgz"
+  integrity sha512-fdjVue+atgkFo3JTx6Dpp2dtFheZ468RHCKQcB1sZckYN8knSru1al5f006jXoyY9IWRsDx9RwLne3X0Exr6hQ==
+  dependencies:
+    "@abp/jquery" "~7.4.5"
     jstree "^3.3.12"
 
 "@abp/lodash@~7.3.2":
@@ -218,13 +233,13 @@
   dependencies:
     moment "^2.9.0"
 
-"@abp/prismjs@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/prismjs/-/prismjs-7.3.2.tgz"
-  integrity sha512-oKMJANDbayxLmKgdMdPv7lUD83Wh8kTtEehFZfSwAqFZPIFMfd8dnCdpi4rbugQlXPBuU9b9iptqj0rOcypROg==
+"@abp/prismjs@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/prismjs/-/prismjs-7.4.5.tgz"
+  integrity sha512-n5ErthDMilyOLUcstXE2yec2DgkFcNHqF0S4nFnSowhvzYUAUPtzX1CMaarbnF/hcs/RkXgTN0OJrKFNrNT4kA==
   dependencies:
-    "@abp/clipboard" "~7.3.2"
-    "@abp/core" "~7.3.2"
+    "@abp/clipboard" "~7.4.5"
+    "@abp/core" "~7.4.5"
     prismjs "^1.26.0"
 
 "@abp/select2@~7.3.2":
@@ -235,19 +250,19 @@
     "@abp/core" "~7.3.2"
     select2 "^4.0.13"
 
-"@abp/slugify@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/slugify/-/slugify-7.3.2.tgz"
-  integrity sha512-bu621Ok3z4MT6z9nwOBp9dgmPS1j+LMUDTd0HARGFT5Vtp6U9RDiVQf1hHau1nlip08aLmPlaulpiDx1iA64kQ==
+"@abp/slugify@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/slugify/-/slugify-7.4.5.tgz"
+  integrity sha512-ZbN9cjFk5Br7GJzcjvX76mH+fE/3bonASwLBoa8D1bvEqOpXmmzchnheObGEAOtY+BAgMzbsU/iVyyor+c1Y1w==
   dependencies:
     slugify "^1.6.5"
 
-"@abp/star-rating-svg@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/star-rating-svg/-/star-rating-svg-7.3.2.tgz"
-  integrity sha512-05NWyRH3gE8zg0JcnBdaKhZL98ygH5n/b1t3oDvktbemMA5yVe2IL1ZYXGxl629YsKptyNUq7hfvTWZGi9gU/A==
+"@abp/star-rating-svg@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/star-rating-svg/-/star-rating-svg-7.4.5.tgz"
+  integrity sha512-pFkgFqN3lbDvHV24TAIR5z5YrNhMEISfXiPpMwbtRqym5yTcGfUsncLnNyhiBTwwjxVX9lb7Wd9eAtTHq8zklQ==
   dependencies:
-    "@abp/jquery" "~7.3.2"
+    "@abp/jquery" "~7.4.5"
     star-rating-svg "^3.5.0"
 
 "@abp/sweetalert2@~7.3.2":
@@ -274,26 +289,33 @@
     "@abp/jquery" "~7.3.2"
     toastr "^2.1.4"
 
-"@abp/tui-editor@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/tui-editor/-/tui-editor-7.3.2.tgz"
-  integrity sha512-omUnwowcK/wscRc99zBR2byFE1BI8df4iRYyVOWLxQHjqyHGNYdLgbBnWolnR4bzff5kFFIoFXScc8XkCPUjew==
+"@abp/tui-editor@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/tui-editor/-/tui-editor-7.4.5.tgz"
+  integrity sha512-5jafnZUqNPxj4n7j68d9FsO8s3rc2uSqHkftP32NuRzrfQ9gskGlHcZTVYdq5tg6Ii4egq6fxaKJGAZMfp7now==
   dependencies:
-    "@abp/jquery" "~7.3.2"
-    "@abp/prismjs" "~7.3.2"
+    "@abp/jquery" "~7.4.5"
+    "@abp/prismjs" "~7.4.5"
 
-"@abp/uppy@~7.3.2":
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/@abp/uppy/-/uppy-7.3.2.tgz"
-  integrity sha512-BB3UPQrqnzmY2ilwNN7o+waXWmMFwhQlTBqMinUtrj4Bvysv8HRH76tUfY2cIMRqW40yAtKOX7tAkmNFlSxz3w==
+"@abp/uppy@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/uppy/-/uppy-7.4.5.tgz"
+  integrity sha512-yeGNfXov3aYlrLsuxmrnHCw5aHpBqM7oe/wA6cprquvYFfWzX65eh3jfk3AAtc8s5UdDcAEPgUZ3YezwSbW9JA==
   dependencies:
-    "@abp/core" "~7.3.2"
+    "@abp/core" "~7.4.5"
     uppy "^1.16.1"
 
 "@abp/utils@~7.3.2":
   version "7.3.2"
   resolved "https://registry.npmjs.org/@abp/utils/-/utils-7.3.2.tgz"
   integrity sha512-dgFnJ4Gwf2EIxgRDsYzoBiQM4Lw4U3SNP3ZvwkwDLv+zfVqU7UDMwJZ0/wSddSTp9m3+plqnICF75L3J6dboPA==
+  dependencies:
+    just-compare "^2.3.0"
+
+"@abp/utils@~7.4.5":
+  version "7.4.5"
+  resolved "https://registry.npmjs.org/@abp/utils/-/utils-7.4.5.tgz"
+  integrity sha512-fuAU4wgiAFTW2xXUQFtt4J3dpFN4pa/TDsjVAEdX7fz/du/PDQ8EKV6bqxguLC2mXO3YXFaH8aYAgthH9oB4nA==
   dependencies:
     just-compare "^2.3.0"
 
@@ -981,9 +1003,9 @@ class-utils@^0.3.5:
     static-extend "^0.1.1"
 
 classnames@^2.2.6:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.2.tgz"
-  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+  version "2.5.1"
+  resolved "https://registry.npmjs.org/classnames/-/classnames-2.5.1.tgz"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
 clipboard@^2.0.8:
   version "2.0.11"
@@ -1033,9 +1055,9 @@ code-point-at@^1.0.0:
   integrity sha512-RpAVKQA5T63xEj6/giIbUEtZwJ4UFIc3ZtvEkiaUERylqe8xb5IvqcgOurZLahv93CLKfxcw5YI+DZcUBRyLXA==
 
 codemirror@^5.65.1:
-  version "5.65.15"
-  resolved "https://registry.npmjs.org/codemirror/-/codemirror-5.65.15.tgz"
-  integrity sha512-YC4EHbbwQeubZzxLl5G4nlbLc1T21QTrKGaOal/Pkm9dVDMZXMH7+ieSPEOZCtO9I68i8/oteJKOxzHC2zR+0g==
+  version "5.65.16"
+  resolved "https://registry.npmjs.org/codemirror/-/codemirror-5.65.16.tgz"
+  integrity sha512-br21LjYmSlVL0vFCPWPfhzUCT34FM/pAdK7rRIZwa0rrtrIdotvP4Oh4GUHsu2E3IrQMCfRkL/fN3ytMNxVQvg==
 
 collection-map@^1.0.0:
   version "1.0.0"
@@ -2063,9 +2085,9 @@ json-stable-stringify-without-jsonify@^1.0.1:
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
 
 jstree@^3.3.12:
-  version "3.3.15"
-  resolved "https://registry.npmjs.org/jstree/-/jstree-3.3.15.tgz"
-  integrity sha512-fNK2EBgGjaJQ3cJuINX/80vDeAufYWtM0csudgYl3eJG+eRAH/1r1IJVUOvAlJIa+uSgg+Fi8uGrt+Xbs92eKg==
+  version "3.3.16"
+  resolved "https://registry.npmjs.org/jstree/-/jstree-3.3.16.tgz"
+  integrity sha512-yeeIJffi2WAqyMeHufXj/Ozy7GqgKdDkxfN8L8lwbG0h1cw/TgDafWmyhroH4AKgDSk9yW1W6jiJZu4zXAqzXw==
   dependencies:
     jquery "^3.5.0"
 
@@ -2343,9 +2365,9 @@ namespace-emitter@^2.0.1:
   integrity sha512-N/sMKHniSDJBjfrkbS/tpkPj4RAbvW3mr8UAzvlMHyun93XEm83IAvhWtJVHo+RHn/oO8Job5YN4b+wRjSVp5g==
 
 nan@^2.12.1:
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.18.0.tgz#26a6faae7ffbeb293a39660e88a76b82e30b7554"
-  integrity sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.19.0.tgz#bb58122ad55a6c5bc973303908d5b16cfdd5a8c0"
+  integrity sha512-nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==
 
 nanomatch@^1.2.9:
   version "1.2.13"
